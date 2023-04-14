@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title style="text-align:center;">웹사이트 달력</title>
+  <style>
+    /* CSS 스타일링 */
+    .calendar {
+      border-collapse: collapse;
+      width: 100%;
+    }
+css
+Copy code
+.calendar th,
+.calendar td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.calendar th {
+  background-color: #f2f2f2;
+}
+
+.calendar td:hover {
+  background-color: #f8f8f8;
+}
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;">웹사이트 달력</h1>
+  <table class="calendar">
+    <thead>
+      <tr>
+        <th>일</th>
+        <th>월</th>
+        <th>화</th>
+        <th>수</th>
+        <th>목</th>
+        <th>금</th>
+        <th>토</th>
+      </tr>
+    </thead>
+    <tbody id="calendar-body">
+      <!-- 이곳에 JavaScript를 통해 동적으로 달력 내용을 추가할 예정 -->
+    </tbody>
+  </table>
+  <script>
+    // JavaScript 코드
+    // 달력 내용을 동적으로 생성하는 코드
+    const calendarBody = document.getElementById("calendar-body");
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+
+    // 달력 내용을 생성하는 함수
+    function generateCalendar(year, month) {
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const startDate = firstDay.getDate();
+      const endDate = lastDay.getDate();
+      const startDay = firstDay.getDay();
+      const endDay = lastDay.getDay();
+      const totalDays = endDate - startDate + 1;
+
+      let date = 1;
+      let day = 0;
+      let calendarHTML = "";
+
+      // 첫 번째 주
+      calendarHTML += "<tr>";
+      for (day = 0; day < startDay; day++) {
+        calendarHTML += "<td></td>";
+      }
+      for (; day < 7; day++) {
+        calendarHTML += "<td>" + date + "</td>";
+        date++;
+      }
+      calendarHTML += "</tr>";
+
+      // 두 번째 주부터 마지막 주까지
+      while (date <= totalDays) {
+        calendarHTML += "<tr>";
+        for (day = 0; day < 7 && date <= totalDays; day++) {
+          calendarHTML += "<td>" + date + "</td>";
+          date++;
+        }
+        calendarHTML += "</tr>";
+      }
+
+      calendarBody.innerHTML = calendarHTML;
+    }
+
+    // 현재 년도와 월을 기준으로 달력을 생성
+    generateCalendar(currentYear, currentMonth);
+  </script>
+</body>
+</html>
+
+

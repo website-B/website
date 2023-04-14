@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>급식 메뉴 정보 조회</title>
+</head>
+<body>
+  <h1>급식 메뉴 정보 조회</h1>
+  <button onclick="fetchMenu()">급식 메뉴 정보 조회</button>
+  <pre id="menu-data"></pre>
+
+  <script>
+    function fetchMenu() {
+      // 현재 날짜를 포맷에 맞게 변환
+      const today = new Date();    
+      const dd = String(today.getDate()).padStart(2, '0');
+
+      const url = `https://school-api.xyz/api/high/J100000484?date=${dd}`;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // JSON 데이터를 문자열로 변환하여 표시
+          document.getElementById("menu-data").innerText = JSON.stringify(data, null, 2);
+        })
+        .catch(error => console.error(error));
+    }
+  </script>
+</body>
+</html>
